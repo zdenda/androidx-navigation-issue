@@ -1,13 +1,18 @@
 package com.android.navigation.example
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.android.navigation.example.databinding.ActivityMainBinding
+
+const val NOTIFICATION_CHANNEL_ID = "channel_id"
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +34,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
             )
         )
+
+        // Create a notification channel
+        NotificationManagerCompat.from(this).createNotificationChannel(
+            NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                "Notification Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+        )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
